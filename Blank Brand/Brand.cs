@@ -86,6 +86,8 @@
             MainMenu.Add(misc);
 
             MainMenu.Attach();
+
+            Game.OnUpdate += OnUpdate;
         }
 
         private static void Combo()
@@ -139,6 +141,24 @@
             {
                 R.Cast();
             }
+        }
+        private static void OnUpdate(EventArgs args)
+        {
+            if (ObjectManager.Player.IsDead || ObjectManager.Player.IsRecalling())
+            {
+                return;
+            }
+
+            Orbwalker.AttackState = true;
+            Orbwalker.MovementState = true;
+
+            switch (Orbwalker.ActiveMode)
+            {
+                case OrbwalkerMode.Combo:
+                    Combo();
+                    break;
+            }
+
         }
     }
 }

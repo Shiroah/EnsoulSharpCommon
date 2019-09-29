@@ -2,17 +2,21 @@
 {
     using EnsoulSharp;
     using EnsoulSharp.SDK;
-    internal class Program
+    public class Program
     {
         private static void Main(string[] args)
         {
-            GameEvent.OnGameLoad += delegate
-            {
-                if (ObjectManager.Player.CharacterName != "Brand")
-                    return;
+            GameEvent.OnGameLoad += OnGameLoad;
+        }
 
-                Brand.OnLoad();
-            };
+        private static void OnGameLoad()
+        {
+            if (ObjectManager.Player.CharacterName != "Brand")
+            {
+                return;
+            }
+
+            Brand.OnLoad();
         }
     }
 }
