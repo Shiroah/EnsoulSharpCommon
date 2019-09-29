@@ -136,7 +136,7 @@
                 if (qPred.Hitchance >= HitChance.High)
                 foreach (var t in GameObjects.EnemyHeroes.Where(x => x.IsValidTarget(E.Range) && x.HasBuff("brandablaze"))) ;
                 {
-                    DelayAction.Add((int)(qtarget.Distance(Player.Position) / 3.5f + Game.Ping), () => {
+                    DelayAction.Add((int)(qtarget.Distance(Player.Position) / 2f + Game.Ping), () => {
                         Q.Cast(qPred.CastPosition);
                     });
                 }
@@ -147,7 +147,7 @@
                 var wPred = W.GetPrediction(wtarget, false, 0);
                 if (wPred.Hitchance >= HitChance.High)
                 {
-                    DelayAction.Add((int)(wtarget.Distance(Player.Position) / 3.5f + Game.Ping), () =>
+                    DelayAction.Add((int)(wtarget.Distance(Player.Position) / 2f + Game.Ping), () =>
                     {
                         W.Cast(wPred.CastPosition);
                     });
@@ -156,7 +156,7 @@
 
             if (MenuWrapper.Combo.E.Enabled && E.IsReady())
             {
-                DelayAction.Add((int)(etarget.Distance(Player.Position) / 3.5f + Game.Ping), () =>
+                DelayAction.Add((int)(etarget.Distance(Player.Position) / 2f + Game.Ping), () =>
                 {
                     E.Cast(etarget);
                 });
@@ -164,7 +164,7 @@
 
             if (MenuWrapper.Combo.R.Enabled && R.IsReady())
             {
-                DelayAction.Add((int)(rtarget.Distance(Player.Position) / 3.5f + Game.Ping), () =>
+                DelayAction.Add((int)(rtarget.Distance(Player.Position) / 2f + Game.Ping), () =>
                 {
                     R.Cast(rtarget);
                 });
