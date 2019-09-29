@@ -104,7 +104,19 @@
                 return;
             }
 
-            if (MenuWrapper.Combo.Q.Enabled && Q.IsReady() && !MenuWrapper.Combo.Qstun.Enabled)
+            var etarget = TargetSelector.GetTarget(E.Range);
+            if (etarget == null || !etarget.IsValidTarget(E.Range))
+            {
+                return;
+            }
+
+            var rtarget = TargetSelector.GetTarget(R.Range);
+            if (rtarget == null || !rtarget.IsValidTarget(R.Range))
+            {
+                return;
+            }
+
+                if (MenuWrapper.Combo.Q.Enabled && Q.IsReady() && !MenuWrapper.Combo.Qstun.Enabled)
             {
                 var qPred = Q.GetPrediction(qtarget, false, -1, CollisionObjects.Minions | CollisionObjects.YasuoWall | CollisionObjects.Heroes);
                 if (qPred.Hitchance >= HitChance.High)
