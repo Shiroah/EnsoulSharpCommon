@@ -13,6 +13,7 @@
     {
         private static Menu MainMenu;
         private static Spell Q, W, E, R;
+        private static AIHeroClient Player;
 
         public static void OnLoad()
         {
@@ -20,6 +21,8 @@
             W = new Spell(SpellSlot.W, 900f);
             E = new Spell(SpellSlot.E, 625f);
             R = new Spell(SpellSlot.R, 750f);
+
+            Player = ObjectManager.Player;
 
             Q.SetSkillshot(0.2f, 50f, 1550f, true, true, SkillshotType.Line);
             W.SetSkillshot(0.5f, 250, float.MaxValue, false, true, SkillshotType.Circle);
@@ -121,7 +124,9 @@
                 var qPred = Q.GetPrediction(qtarget, false, -1, CollisionObjects.Minions | CollisionObjects.YasuoWall | CollisionObjects.Heroes);
                 if (qPred.Hitchance >= HitChance.High)
                 {
-                    Q.Cast(qPred.CastPosition);
+                    DelayAction.Add((int)(qtarget.Distance(Player.Position) / 3.5f + Game.Ping), () => {
+                        Q.Cast(qPred.CastPosition);
+                    });
                 }
             }
 
@@ -131,7 +136,9 @@
                 if (qPred.Hitchance >= HitChance.High)
                 foreach (var t in GameObjects.EnemyHeroes.Where(x => x.IsValidTarget(E.Range) && x.HasBuff("brandablaze"))) ;
                 {
-                    Q.Cast(qPred.CastPosition);
+                    DelayAction.Add((int)(qtarget.Distance(Player.Position) / 3.5f + Game.Ping), () => {
+                        Q.Cast(qPred.CastPosition);
+                    });
                 }
             }
 
@@ -140,18 +147,27 @@
                 var wPred = W.GetPrediction(wtarget, false, 0);
                 if (wPred.Hitchance >= HitChance.High)
                 {
-                    W.Cast(wPred.CastPosition);
+                    DelayAction.Add((int)(wtarget.Distance(Player.Position) / 3.5f + Game.Ping), () =>
+                    {
+                        W.Cast(wPred.CastPosition);
+                    });
                 }
             }
 
             if (MenuWrapper.Combo.E.Enabled && E.IsReady())
             {
-                E.Cast();
+                DelayAction.Add((int)(etarget.Distance(Player.Position) / 3.5f + Game.Ping), () =>
+                {
+                    E.Cast(etarget);
+                });
             }
 
             if (MenuWrapper.Combo.R.Enabled && R.IsReady())
             {
-                R.Cast();
+                DelayAction.Add((int)(rtarget.Distance(Player.Position) / 3.5f + Game.Ping), () =>
+                {
+                    R.Cast(rtarget);
+                }
             }
         }
         private static void OnUpdate(EventArgs args)
