@@ -167,7 +167,7 @@
                 DelayAction.Add((int)(rtarget.Distance(Player.Position) / 3.5f + Game.Ping), () =>
                 {
                     R.Cast(rtarget);
-                }
+                });
             }
         }
         private static void OnUpdate(EventArgs args)
