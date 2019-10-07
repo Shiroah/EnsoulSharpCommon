@@ -14,6 +14,8 @@ by pressing Caps Lock)
 - Orianna
 - Azir
 - Ekko
+- Syndra
+- Adding Funneling Mode to Blank Lulu
 
 #### To-Do List:
 - Evade
